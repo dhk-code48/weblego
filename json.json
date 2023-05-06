@@ -1,0 +1,89 @@
+{
+  "websites": {
+    "websiteId1": {
+      "name": "Lego Site",
+      "url": "https://legosite.com",
+      "createdOn": "2023/16/4",
+      "pages": {
+        "pageId1": {
+          "name": "Home",
+          "sections": [
+            {
+              "id": "sectionId1",
+              "name": "Header",
+              "styles": {
+                "background": "#000",
+                "display": "flex",
+                "justifyContent": "space-between",
+                "width": "100%"
+              },
+              "children": [
+                {
+                  "id": "childId1",
+                  "tag": "div",
+                  "styles": {
+                    "background": "#000"
+                  },
+                  "children": [
+                    {
+                      "id": "childId2",
+                      "tag": "h1",
+                      "content": "Lego Site",
+                      "styles": {
+                        "color": "#fff",
+                        "fontSize": "20px"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "childId3",
+                  "tag": "ul",
+                  "styles": {
+                    "alignItems": "center",
+                    "color": "#fff",
+                    "display": "flex"
+                  },
+                  "children": [
+                    {
+                      "id": "childId4",
+                      "tag": "li",
+                      "content": "Home",
+                      "styles": {
+                        "margin": "0px 5px"
+                      }
+                    },
+                    {
+                      "id": "childId5",
+                      "tag": "li",
+                      "content": "About",
+                      "styles": {
+                        "margin": "0px 5px"
+                      }
+                    },
+                    {
+                      "id": "childId6",
+                      "tag": "li",
+                      "content": "Services",
+                      "styles": {
+                        "margin": "0px 5px"
+                      }
+                    },
+                    {
+                      "id": "childId7",
+                      "tag": "li",
+                      "content": "Contact",
+                      "styles": {
+                        "margin": "0px 5px"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}
