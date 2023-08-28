@@ -6,63 +6,55 @@ import React, { FC, ReactElement, ReactNode } from "react";
 import getWebsiteData from "@/db/getWebsiteData";
 import { ref } from "firebase/database";
 import {
-  useList,
-  useObject,
   useObjectVal,
 } from "react-firebase-hooks/database";
 import { db } from "@/config/firebase";
 interface ElementProps {
-  childElement: {
-    elements: {
-      [childId: string]: ElementProps;
-    };
+[elementId:string]:{
+    childElement: {
+    elements: ElementProps;
+  
   } | null;
   element: keyof JSX.IntrinsicElements;
   type: string;
   content: string;
 }
+}
+
+interface SectionProps{
+  elements: ElementProps
+  
+}
 
 interface websiteDataProps {
-  name: string;
-  userName: string;
-  pages: {
-    [pageKey: string]: {
-      pageName: string;
-      sections: {
-        [sectionId: string]: {
-          elements: {
-            [elementId: string]: ElementProps;
-          };
-        };
-      };
-    };
-  };
+  pageName: string, 
+  pages:{
+    [pageId:string]:{
+      sections:{
+        [sectionId:string]:SectionProps
+      }
+    }
+  }
 }
 
-interface Elements {
-  elements: { [elementId: string]: ElementProps };
-}
-
-const RenderData: FC<{ elementData: Elements | string }> = ({
+const RenderData: FC<{ elementData: ElementProps  }> = ({
   elementData,
 }) => {
-  if (typeof elementData === "string") {
-    return <>{elementData}</>;
-  }
+
+  console.log("ELEMENT DATA => ", elementData)
+
 
   return (
     <>
-      {Object.keys(elementData.elements).map((elementId) => {
-        const element = elementData.elements[elementId];
+      {Object.keys(elementData).map((elementId) => {
+        const element = elementData[elementId];
         const Tag = element.element;
 
         return (
           <Tag key={elementId}>
-            {typeof element.childElement !== "string" ? (
-              <RenderData elementData={element.childElement} />
-            ) : (
-              <RenderData elementData={element.childElement} />
-            )}
+            {
+              element.childElement ? <RenderData elementData={element.childElement.elements}/>:<>{element.content}</> 
+            }
           </Tag>
         );
       })}
@@ -73,9 +65,11 @@ const RenderData: FC<{ elementData: Elements | string }> = ({
 const Editor: FC<{
   params: { websiteId: string };
 }> = ({ params }) => {
+
   const [value, loading, error] = useObjectVal<websiteDataProps>(
     ref(db, "websites/uid")
   );
+  
   console.log("value ", value?.pages["pageId-123"]);
   console.log("loading ", loading);
   console.log("error ", error);
@@ -83,7 +77,7 @@ const Editor: FC<{
   return (
     <>
       <Menubar />
-      <div className="flex justify-between">
+      <div className="flex justify-between  h-[calc(100vh-40px)] overflow-hidden">
         <SideTabs />
         <div className="flex-1 w-full">
           {value !== undefined &&

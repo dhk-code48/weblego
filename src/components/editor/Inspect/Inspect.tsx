@@ -18,7 +18,7 @@ import Design from "./Design";
 
 const Inspect: FC = () => {
   return (
-    <Tabs defaultValue="design" className="w-[300px] h-[calc(100vh-40px)]">
+    <Tabs defaultValue="design" className="w-[300px] h-[calc(100vh-40px)] overflow-scroll">
       <div className="flex">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="design">Design</TabsTrigger>
